@@ -8,6 +8,6 @@ package projetjava;
  *
  * @author I555807
  */
-public class Hello {
+public class Personnage {
     
 }
