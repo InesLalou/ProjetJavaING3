@@ -11,32 +11,29 @@ package projetjava;
 public class Personnage {
     String nom;
     int xPersonnage, yPersonnage;
-    int xPersonnage2, yPersonnage2;
     
+    Personnage(){
+        
+    }
     public String getNom(){
         return nom;
     }
-    public int getxPerso(){
+    public int getx(){
         return xPersonnage;
     }
-    public int getyPerso(){
+    public int gety(){
         return yPersonnage;
     }
-    public String setNom(String nom){
-       return this.nom = nom; 
+    public void setNom(String nom){
+       this.nom = nom; 
     }
-    public int setxPerso(int xPos){
-        return xPersonnage = xPos;
+    public void setx(int xPos){
+         xPersonnage = xPos;
     }
-    public int setyPerso(int yPos){
-        return yPersonnage = yPos;
+    public void sety(int yPos){
+         yPersonnage = yPos;
     }
     
-    public void collison(){
-        if(xPersonnage == xPersonnage2 && yPersonnage == yPersonnage2 ){
-            System.out.println(" Game Over");
-            
-        }
-    }
+    
 }
     
