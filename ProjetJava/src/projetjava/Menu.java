@@ -4,7 +4,10 @@
  */
 package projetjava;
 
+import jaco.mp3.player.MP3Player;
+import java.io.File;
 import java.util.Scanner;
+
 
 /**
  *
@@ -27,23 +30,20 @@ public class Menu {
         switch (selection) {
             case 1:
                 System.out.println("Lancement de votre partie en cours...");
-                Map map = new Map();
-                map.Afficher();
-
-                do {
-                    //System.out.print("\033[H\033[2J"); 
-                    //System.out.flush();
-                    Scanner char1 = new Scanner(System.in);
-                    char s = char1.next().charAt(0);
-
-                    map.Deplacer(s);
-
-                    map.Afficher();
-                } while (map.casePred != 'P');
-                if (map.casePred == 'P') {
-                    System.out.println("Fin du Tableau 1 : Félicitation ! vous aurez des bonbons");
-                }
-
+                
+                MP3Player player = new MP3Player(new File("C:\\Users\\ine28\\Downloads\\ECEMAN.mp3"));
+                player.play();
+                
+                Scanner char1 = new Scanner(System.in);
+                char s;
+                
+                Map map1 = new Map(1);
+                int num=1;
+                
+                map1.Afficher();
+                
+                map1.Partie(map1, num);
+                
                 break;
             case 2:
                 System.out.println("Reprise de votre partie en cours...");

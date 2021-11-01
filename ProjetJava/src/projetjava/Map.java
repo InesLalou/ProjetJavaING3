@@ -4,6 +4,8 @@
  */
 package projetjava;
 
+import java.util.Scanner;
+
 /**
  *
  * @author I555807
@@ -17,8 +19,11 @@ public class Map {
     boolean obj;
     char casePred;
 
-    Map() {
-        DefTab1();
+    Map(int tab) {
+        if(tab==1)
+           DefTab1(); 
+        if(tab==2)
+            DefTab2();
         casePred = 'g';
     }
 
@@ -43,26 +48,69 @@ public class Map {
         eceman.sety(14);
 
     }
+    void DefTab2() {
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 19; j++) {
+                map[i][j] = '#';
+            }
+        }
+        for (int i = 3; i < 12; i++) {
+            for (int j = 4; j < 14; j++) {
+                map[i][j] = 'M';
+            }
+        }
+        map[5][9] = 'g';
+        for (int j = 5; j < 10; j++) {
+            map[4][j] = 'g';
+        }
+        for (int i = 4; i < 11; i++) {
+            map[i][5] = 'g';
+        }
+        for (int i = 9; i < 11; i++) {
+            for (int j = 5; j < 13; j++) {
+                map[i][j] = 'g';
+            }
+        }
+        for (int i = 6; i < 11; i++) {
+            for (int j = 11; j < 13; j++) {
+                map[i][j] = 'g';
+            }
+        }
+        map[6][10] = 'g';
+        map[6][9] = 'G';
+        map[6][8] = 'g';
+        map[6][7] = 'P';
+        map[7][9] = 'E';
+        eceman.setx(7);
+        eceman.sety(9);
+        
+    }
 
     void Deplacer(char d) {
-        if (d == 'z') {
-            if (map[eceman.getx() - 1][eceman.gety()] == 'g' || map[eceman.getx()][eceman.gety() - 1] == 'P') {
+        if (d == 'z') {// Partie perdue si rentre dans eau ou mur ??
+            System.out.println("test1");
+            if (map[eceman.getx() - 1][eceman.gety()] == 'g' || map[eceman.getx() - 1][eceman.gety()] == 'P' || map[eceman.getx() - 1][eceman.gety()] == 'G') {
+                System.out.println("test2");
                 if (casePred == 'g') {
                     map[eceman.getx()][eceman.gety()] = 'o';
                 }
+                if (casePred == 'G') {
+                    map[eceman.getx()][eceman.gety()] = 'g';
+                }
 
                 casePred = map[eceman.getx() - 1][eceman.gety()];
-                map[eceman.getx() + 1][eceman.gety()] = 'E';
-                eceman.setx(eceman.getx()-1);
+                map[eceman.getx() - 1][eceman.gety()] = 'E';
                 
+                eceman.setx(eceman.getx()-1);
             } 
-
-        }
-        
+        }  
         else if (d == 's') {
-            if (map[eceman.getx() + 1][eceman.gety()] == 'g' || map[eceman.getx()][eceman.gety() - 1] == 'P') {
+            if (map[eceman.getx() + 1][eceman.gety()] == 'g' || map[eceman.getx() + 1][eceman.gety()] == 'P' || map[eceman.getx() + 1][eceman.gety()] == 'G') {
                 if (casePred == 'g') {
                     map[eceman.getx()][eceman.gety()] = 'o';
+                }
+                if (casePred == 'G') {
+                    map[eceman.getx()][eceman.gety()] = 'g';
                 }
 
                 casePred = map[eceman.getx() + 1][eceman.gety()];
@@ -72,9 +120,12 @@ public class Map {
             } 
 
         } else if (d == 'd') {//Droite
-            if (map[eceman.getx()][eceman.gety() + 1] == 'g' || map[eceman.getx()][eceman.gety() - 1] == 'P') {
+            if (map[eceman.getx()][eceman.gety() + 1] == 'g' || map[eceman.getx()][eceman.gety() + 1] == 'P' || map[eceman.getx()][eceman.gety() + 1] == 'G') {
                 if (casePred == 'g') {
                     map[eceman.getx()][eceman.gety()] = 'o';
+                }
+                if (casePred == 'G') {
+                    map[eceman.getx()][eceman.gety()] = 'g';
                 }
                 
                 casePred = map[eceman.getx()][eceman.gety() + 1];
@@ -85,11 +136,13 @@ public class Map {
 
         } 
         else if (d == 'q') {//Gauche
-            if (map[eceman.getx()][eceman.gety() - 1] == 'g' || map[eceman.getx()][eceman.gety() - 1] == 'P') {//Verifie si la case suivante est une glace
+            if (map[eceman.getx()][eceman.gety() - 1] == 'g' || map[eceman.getx()][eceman.gety() - 1] == 'P' || map[eceman.getx()][eceman.gety() - 1] == 'G') {//Verifie si la case suivante est une glace
                 if (casePred == 'g')//Transforme la glace en eau
                 {
                     map[eceman.getx()][eceman.gety()] = 'o';
-                    
+                }
+                if (casePred == 'G') {
+                    map[eceman.getx()][eceman.gety()] = 'g';
                 }
 
                 casePred = map[eceman.getx()][eceman.gety() - 1];
@@ -112,6 +165,40 @@ public class Map {
             }
             System.out.println("");
         }
+    }
+    
+    void Partie(Map mapActuel, int num){
+         Scanner char1 = new Scanner(System.in);
+                char s;
+                do { //System.out.print("\033[H\033[2J"); 
+                    //System.out.flush();
+                    s = char1.next().charAt(0);
+
+                    mapActuel.Deplacer(s);
+
+                    mapActuel.Afficher();
+                } while (mapActuel.casePred != 'P');
+                
+                if (mapActuel.casePred == 'P') {
+                    System.out.println("Fin du Tableau "+num+" : Félicitation ! vous aurez des bonbons");
+                }
+                
+                System.out.println("Voulez-vous continuer ? Tapez Y");
+                System.out.println("Voulez-vous quitter et sauvegarder votre partie ? Tapez Q");
+                s = char1.next().charAt(0);
+                
+                if(s=='Y' && num+1<6){
+                num++;
+                Map mapPro = new Map(num);
+                
+                mapPro.Afficher();
+                mapPro.Partie(mapPro, num);
+                
+                }
+                else{
+                    //Sauvegarder
+                }
+                
     }
 
 }
