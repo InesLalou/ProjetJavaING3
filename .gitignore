@@ -23,3 +23,6 @@
 hs_err_pid*
 /ProjetJava/build/
 /ProjetJava/dist/
+/ProjetJava/ProjetJava/build/
+/ProjetJava/ProjetJava/dist/
+/ProjetJava/ProjetJava/nbproject/private/
