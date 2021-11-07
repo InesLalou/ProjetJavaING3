@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.Scanner;
 //import java.io.FileNotFoundException;
 
+
+
 /**
  *
  * @author I555807
@@ -35,6 +37,7 @@ public class Map {
         if(tab==2)
             DefTab2();
            // num = 2;
+
         casePred = 'g';
     }
 
@@ -103,6 +106,7 @@ public class Map {
            
             if (map[eceman.getx() - 1][eceman.gety()] == 'g' || map[eceman.getx() - 1][eceman.gety()] == 'P' || map[eceman.getx() - 1][eceman.gety()] == 'G') {
               
+
                 if (casePred == 'g') {
                     map[eceman.getx()][eceman.gety()] = 'o';
                 }
@@ -192,6 +196,7 @@ public class Map {
                     mapActuel.Afficher();
                     
                 } while (mapActuel.casePred != 'P' && s !='p');
+
                 
                 if (mapActuel.casePred == 'P') {
                     System.out.println("Fin du Tableau "+num+" : Félicitation ! vous aurez des bonbons");
@@ -202,10 +207,12 @@ public class Map {
                 s = char1.next().charAt(0);
                 
                 if(s=='Y' && num+1<6){
+
                clearConsole();
                 num++;
                 Map mapPro = new Map();
                 mapPro.Tab(num);
+
                 
                 mapPro.Afficher();
                 mapPro.Partie(mapPro, num);
@@ -231,6 +238,7 @@ public class Map {
     }
          fileWriter.flush();
                fileWriter.close();
+
 
         }catch (IOException ex) {
                     System.out.println("IOException is caught");

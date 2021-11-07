@@ -4,7 +4,8 @@
  */
 package projetjava;
 
-//import jaco.mp3.player.MP3Player;
+//import jaco.mp3.player.MP3Player
+
 import java.io.File;
 import java.util.Scanner;
 
@@ -45,7 +46,7 @@ public class Menu {
                 map1.Afficher();
                 
                 map1.Partie(map1, 1);
-                
+               
                 
                 break;
             case 2:
