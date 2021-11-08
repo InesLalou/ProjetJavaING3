@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 //import java.io.FileNotFoundException;
 
 
@@ -27,6 +28,13 @@ public class Map {
     boolean obj;
     char casePred;
     int num;
+    public int compteur;
+    static long displayminutes;
+    static long displaysecondes;
+            boolean x=true;
+    long displayMinutes=0;
+    long starttime=System.currentTimeMillis();
+    
     void Map(){
         
     }
@@ -36,6 +44,10 @@ public class Map {
            //num = 1;
         if(tab==2)
             DefTab2();
+        if(tab==3)
+            DefTab3();
+        if(tab==4)
+            DefTab4();
            // num = 2;
 
         casePred = 'g';
@@ -101,58 +113,228 @@ public class Map {
         
     }
 
+    void DefTab3(){
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 19; j++) {
+                map[i][j] = '#';
+            }
+        }
+        for (int i = 1; i < 12; i++) {
+            for (int j = 3; j < 15; j++) {
+                map[i][j] = 'M';
+            }
+        }
+        for (int j = 5; j < 8; j++) {
+           map[2][j] = 'g';
+        }
+        for (int j = 11; j < 14; j++) {
+           map[2][j] = 'g';
+        }
+        for (int j = 5; j < 14; j++) {
+           map[4][j] = 'g';
+        }
+        
+        for (int j = 4; j < 13; j++) {
+           map[10][j] = 'g';
+        }
+        for (int j = 11; j < 14; j++) {
+           map[8][j] = 'g';
+        }
+        map[3][5]='g';
+        map[3][7]='g';
+        map[3][13]='g';
+        for (int i = 2; i < 10; i++) {
+                map[i][7] = 'g';
+        }
+        for (int i = 2; i < 8; i++) {
+                map[i][11] = 'g';
+        }
+        
+        map[4][7]='G';
+        map[4][11]='G';
+        map[10][7]='G';
+        map[10][6]='T';
+        map[10][13]='P';
+        map[7][13]='E';
+        
+        eceman.setx(7);
+        eceman.sety(13);
+        
+    }
+    
+    
+    void DefTab4(){
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 19; j++) {
+                map[i][j] = '#';
+            }
+        }
+        for (int i = 1; i < 14; i++) {
+            for (int j = 2; j < 19; j++) {
+                map[i][j] = 'M';
+            }
+        }
+        
+        
+       for (int j = 4; j < 10; j++) {
+            map[2][j] = 'g';
+        }
+        for (int j = 15; j < 18; j++) {
+            map[2][j] = 'g';
+        }
+        for (int j = 13; j < 16; j++) {
+            map[3][j] = 'g';
+        }
+        for (int j = 9; j < 14; j++) {
+            map[4][j] = 'g';
+        }
+        map[3][9] = 'g';
+        
+        for (int j = 4; j < 16; j++) {
+            map[12][j] = 'g';
+        }
+        for (int j = 10; j < 13; j++) {
+            map[7][j] = 'g';
+        }
+        map[8][10] = 'g';
+        map[9][10] = 'g';
+        map[8][12] = 'g';
+        map[9][12] = 'g';
+        for (int i = 9; i < 13; i++) {
+            map[i][11] = 'G';
+        }
+        
+        map[2][17]='P';
+        map[12][16]='E';
+        map[2][3]='R';
+        map[12][3]='R';
+        
+        eceman.setx(12);
+        eceman.sety(16);
+        
+    }
+    
+    //methodes pour récupérer temps
+    static void temps(long minutes, long secondes){
+      displayminutes = minutes;
+      displaysecondes = secondes;
+        
+        
+    }
+    
     void Deplacer(char d) {
         if (d == 'z') {// Partie perdue si rentre dans eau ou mur ??
-           
-            if (map[eceman.getx() - 1][eceman.gety()] == 'g' || map[eceman.getx() - 1][eceman.gety()] == 'P' || map[eceman.getx() - 1][eceman.gety()] == 'G') {
-              
-
+            //System.out.println("test1");
+            if (map[eceman.getx() - 1][eceman.gety()] == 'g' || map[eceman.getx() - 1][eceman.gety()] == 'P' || map[eceman.getx() - 1][eceman.gety()] == 'G' || map[eceman.getx() - 1][eceman.gety()] == 'T') {
+                System.out.println("test2");
                 if (casePred == 'g') {
                     map[eceman.getx()][eceman.gety()] = 'o';
                 }
                 if (casePred == 'G') {
                     map[eceman.getx()][eceman.gety()] = 'g';
+                }
+                if (casePred == 'T') {
+                    map[eceman.getx()][eceman.gety()] = 'o';
                 }
 
                 casePred = map[eceman.getx() - 1][eceman.gety()];
-                map[eceman.getx() - 1][eceman.gety()] = 'E';
+                int i=1;
+                int x;
+                //Utiliser l'objet
+                if(map[eceman.getx() - 1][eceman.gety()] == 'T')
+                {
+                    do{
+                    x=eceman.getx()-i;
+                    map[x][eceman.gety()] ='o';
+                    i++;
+                    }while(map[eceman.getx()-i][eceman.gety()] != 'M');
+                }
                 
+                //Deplacer Eceman
+                map[eceman.getx() - 1][eceman.gety()] = 'E';
+                //Memoriser sa position
                 eceman.setx(eceman.getx()-1);
+                //compteur et affichage de glaces brisées 
+                compteur = compteur +1;
+                System.out.println("Score : "+compteur);
+                
+                
+                
+                
             } 
         }  
         else if (d == 's') {
-            if (map[eceman.getx() + 1][eceman.gety()] == 'g' || map[eceman.getx() + 1][eceman.gety()] == 'P' || map[eceman.getx() + 1][eceman.gety()] == 'G') {
+            if (map[eceman.getx() + 1][eceman.gety()] == 'g' || map[eceman.getx() + 1][eceman.gety()] == 'P' || map[eceman.getx() + 1][eceman.gety()] == 'G' || map[eceman.getx() + 1][eceman.gety()] == 'T') {
+                
                 if (casePred == 'g') {
                     map[eceman.getx()][eceman.gety()] = 'o';
                 }
                 if (casePred == 'G') {
                     map[eceman.getx()][eceman.gety()] = 'g';
                 }
-
-                casePred = map[eceman.getx() + 1][eceman.gety()];
-                map[eceman.getx() + 1][eceman.gety()] = 'E';
+                if (casePred == 'T') {
+                    map[eceman.getx()][eceman.gety()] = 'o';
+                }
                 
+                casePred = map[eceman.getx() + 1][eceman.gety()];
+                int i=1;
+                int x;
+                //Utiliser l'objet
+                if(map[eceman.getx() + 1][eceman.gety()] == 'T')
+                {
+                    do{
+                    x=eceman.getx()+i;
+                    map[x][eceman.gety()] ='o';
+                    i++;
+                    }while(map[eceman.getx()+i][eceman.gety()] != 'M');
+                }
+                
+                //Deplacer Eceman
+                map[eceman.getx() + 1][eceman.gety()] = 'E';
+                //Memoriser sa position
                 eceman.setx(eceman.getx()+1);
+                //compteur et affichage de glaces brisées 
+                compteur = compteur +1;
+                System.out.println("Score : "+compteur);
             } 
 
         } else if (d == 'd') {//Droite
-            if (map[eceman.getx()][eceman.gety() + 1] == 'g' || map[eceman.getx()][eceman.gety() + 1] == 'P' || map[eceman.getx()][eceman.gety() + 1] == 'G') {
+            if (map[eceman.getx()][eceman.gety() + 1] == 'g' || map[eceman.getx()][eceman.gety() + 1] == 'P' || map[eceman.getx()][eceman.gety() + 1] == 'G' || map[eceman.getx()][eceman.gety() + 1] == 'T') {
                 if (casePred == 'g') {
                     map[eceman.getx()][eceman.gety()] = 'o';
                 }
                 if (casePred == 'G') {
                     map[eceman.getx()][eceman.gety()] = 'g';
                 }
-                
+                if (casePred == 'T') {
+                    map[eceman.getx()][eceman.gety()] = 'o';
+                }
+                int i=1;
+                int y;
+                //Utiliser l'objet
                 casePred = map[eceman.getx()][eceman.gety() + 1];
+                if(map[eceman.getx()][eceman.gety() + 1] == 'T')
+                {
+                    do{
+                    y=eceman.gety()+i;
+                    map[eceman.getx()][y] ='o';
+                    i++;
+                    }while(map[eceman.getx()][eceman.gety()+i] != 'M');
+                }
+                //Deplacer Eceman
                 map[eceman.getx()][eceman.gety() + 1] = 'E';
-                
+                //Memoriser sa position
                 eceman.sety(eceman.gety() + 1);
+                //compteur et affichage de glaces brisées 
+                compteur = compteur +1;
+                System.out.println("Score : "+compteur);
             } 
 
         } 
         else if (d == 'q') {//Gauche
-            if (map[eceman.getx()][eceman.gety() - 1] == 'g' || map[eceman.getx()][eceman.gety() - 1] == 'P' || map[eceman.getx()][eceman.gety() - 1] == 'G') {//Verifie si la case suivante est une glace
+            
+            if (map[eceman.getx()][eceman.gety() - 1] == 'g' || map[eceman.getx()][eceman.gety() - 1] == 'P' || map[eceman.getx()][eceman.gety() - 1] == 'G' || map[eceman.getx()][eceman.gety() - 1] == 'T' || map[eceman.getx()][eceman.gety() - 1] == 'R') {//Verifie si la case suivante est une glace
+               
                 if (casePred == 'g')//Transforme la glace en eau
                 {
                     map[eceman.getx()][eceman.gety()] = 'o';
@@ -160,17 +342,50 @@ public class Map {
                 if (casePred == 'G') {
                     map[eceman.getx()][eceman.gety()] = 'g';
                 }
-
+                if (casePred == 'T') {
+                    map[eceman.getx()][eceman.gety()] = 'o';
+                }
+                //Utiliser un objet
+                int i=1;
+                int y;
                 casePred = map[eceman.getx()][eceman.gety() - 1];
-                map[eceman.getx()][eceman.gety() - 1] = 'E';//Deplace perso 
+                if(map[eceman.getx()][eceman.gety()-1] == 'T')
+                {
+                    do{
+                    y=eceman.gety()-i;
+                    map[eceman.getx()][y] ='o';
+                    i++;
+                    }while(map[eceman.getx()][eceman.gety()-i] != 'M');
+                }
                 
-                eceman.sety(eceman.gety() - 1);
+               
+                //Si Portail
+                if(map[eceman.getx()][eceman.gety()-1] == 'R')
+                {
+                    System.out.println("test R2");
+                    casePred = map[2][4];
+                    //Deplacer Eceman
+                    map[2][4] = 'E';//Deplace perso
+                    //Memoriser sa position
+                    eceman.setx(2);
+                    eceman.sety(4);
+                }
+                else{
+                     //Deplacer Eceman
+                    map[eceman.getx()][eceman.gety() - 1] = 'E';//Deplace perso 
+                    //Memoriser sa position
+                    eceman.sety(eceman.gety() - 1);
+                    //compteur et affichage de glaces brisées 
+                compteur = compteur +1;
+                System.out.println("Score : "+compteur);
+                
+                }
                 
             } 
 
         }
-        else if(d=='p'){
-               // sauvegarder();
+        else {
+                //Ne peut pas se deplacer
             }
     }
 
@@ -183,19 +398,31 @@ public class Map {
         }
     }
     
-    void Partie(Map mapActuel, int num){
+    void Partie(Map mapActuel, int num) throws InterruptedException{
          Scanner char1 = new Scanner(System.in);
                 char s;
                 do { //System.out.print("\033[H\033[2J"); 
                     //System.out.flush();
+                    
+                    
+        TimeUnit.SECONDS.sleep(1);
+        long timepassed=System.currentTimeMillis()-starttime;
+        long secondspassed=timepassed/1000;
+        if(secondspassed==60)
+        {
+            secondspassed=0;
+            starttime=System.currentTimeMillis();
+        }
+        if((secondspassed%60)==0)
+        displayMinutes++;
                    
                     s = char1.next().charAt(0);
                     clearConsole();
                     mapActuel.Deplacer(s);
-                     
+                    System.out.println("Temps : "+displayMinutes+"min "+secondspassed+"s");
                     mapActuel.Afficher();
                     
-                } while (mapActuel.casePred != 'P' && s !='p');
+                } while (mapActuel.casePred != 'P' && s !='p' && x );
 
                 
                 if (mapActuel.casePred == 'P') {
@@ -219,6 +446,7 @@ public class Map {
                 
                 }
                 else{
+                  System.out.println("Votre partie a été sauvegardée. A bientôt !");
                   // sauvegarder();
                 }
                 
