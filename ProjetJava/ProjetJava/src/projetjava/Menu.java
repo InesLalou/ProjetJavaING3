@@ -6,8 +6,10 @@ package projetjava;
 
 //import jaco.mp3.player.MP3Player
 
+//import jaco.mp3.player.MP3Player;
 import java.io.File;
 import java.util.Scanner;
+
 
 
 /**
@@ -16,7 +18,7 @@ import java.util.Scanner;
  */
 public class Menu {
 
-    public void MenuData() {
+    public void MenuData() throws InterruptedException {
         int selection;
         Scanner sc = new Scanner(System.in);
         System.out.println("Bienvenue sur notre jeu FINN-ECE !");
@@ -31,8 +33,14 @@ public class Menu {
         switch (selection) {
             case 1:
                 System.out.println("Lancement de votre partie en cours...");
+            Timer timer = new Timer();
+            //timer.AfficherTimer();
+            
+            
+            
                 
-                //MP3Player player = new MP3Player(new File("C:\\Users\\lyseb\\Documents\\GitHub\\ProjetJavaING3\\ProjetJava\\ECEMAN.mp3"));
+                
+               //MP3Player player = new MP3Player(new File("C:\\Users\\I555807\\OneDrive - SAP SE\\Documents\\ECE Paris\\Cours\\POO\\Projet Java - FINN ECE\\ProjetJavaING3\\ProjetJava\\ECEMAN.mp3"));
                 //player.play();
                 Map map1 = new Map();
                 map1.clearConsole();
@@ -42,13 +50,16 @@ public class Menu {
                 
                 map1.Tab(1);
                 //int num=1;
-                
+                System.out.println("Niveau 1");
+                System.out.println("Score : 0");
+                System.out.println("Temps : 0min 0s");
                 map1.Afficher();
                 
                 map1.Partie(map1, 1);
                
                 
                 break;
+
             case 2:
                 System.out.println("Reprise de votre partie en cours...");
                // Map map2 = new Map();

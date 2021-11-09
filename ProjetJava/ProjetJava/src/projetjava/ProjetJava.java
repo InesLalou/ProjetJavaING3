@@ -22,7 +22,7 @@ public class ProjetJava {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) throws ClassNotFoundException, InterruptedException {
         Menu menu = new Menu();
         menu.MenuData();
     }

@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 //import java.io.FileNotFoundException;
 
 
@@ -27,6 +28,14 @@ public class Map {
     boolean obj;
     char casePred;
     int num;
+    static int compteur;
+    static long displayminutes;
+    static long displaysecondes;
+            boolean x=true;
+    static long displayMinutes=0;
+    long starttime=System.currentTimeMillis();
+    static int niveau = 1;
+    
     void Map(){
         
     }
@@ -206,6 +215,14 @@ public class Map {
         
     }
     
+    //methodes pour récupérer temps
+    static void temps(long minutes, long secondes){
+      displayminutes = minutes;
+      displaysecondes = secondes;
+        
+        
+    }
+    
     void Deplacer(char d) {
         if (d == 'z') {// Partie perdue si rentre dans eau ou mur ??
             //System.out.println("test1");
@@ -238,10 +255,18 @@ public class Map {
                 map[eceman.getx() - 1][eceman.gety()] = 'E';
                 //Memoriser sa position
                 eceman.setx(eceman.getx()-1);
+                //compteur et affichage de glaces brisées 
+                compteur = compteur +1;
+                     
+                
+                
+                
+                
             } 
         }  
         else if (d == 's') {
             if (map[eceman.getx() + 1][eceman.gety()] == 'g' || map[eceman.getx() + 1][eceman.gety()] == 'P' || map[eceman.getx() + 1][eceman.gety()] == 'G' || map[eceman.getx() + 1][eceman.gety()] == 'T') {
+                
                 if (casePred == 'g') {
                     map[eceman.getx()][eceman.gety()] = 'o';
                 }
@@ -269,6 +294,9 @@ public class Map {
                 map[eceman.getx() + 1][eceman.gety()] = 'E';
                 //Memoriser sa position
                 eceman.setx(eceman.getx()+1);
+                //compteur et affichage de glaces brisées 
+                compteur = compteur +1;
+                
             } 
 
         } else if (d == 'd') {//Droite
@@ -298,6 +326,9 @@ public class Map {
                 map[eceman.getx()][eceman.gety() + 1] = 'E';
                 //Memoriser sa position
                 eceman.sety(eceman.gety() + 1);
+                //compteur et affichage de glaces brisées 
+                compteur = compteur +1;
+                
             } 
 
         } 
@@ -345,6 +376,9 @@ public class Map {
                     map[eceman.getx()][eceman.gety() - 1] = 'E';//Deplace perso 
                     //Memoriser sa position
                     eceman.sety(eceman.gety() - 1);
+                    //compteur et affichage de glaces brisées 
+                compteur = compteur +1;
+                
                 
                 }
                 
@@ -365,23 +399,39 @@ public class Map {
         }
     }
     
-    void Partie(Map mapActuel, int num){
+    void Partie(Map mapActuel, int num) throws InterruptedException{
          Scanner char1 = new Scanner(System.in);
                 char s;
                 do { //System.out.print("\033[H\033[2J"); 
                     //System.out.flush();
+                    
+                    
+        TimeUnit.SECONDS.sleep(1);
+        long timepassed=System.currentTimeMillis()-starttime;
+        long secondspassed=timepassed/1000;
+        if(secondspassed==60)
+        {
+            secondspassed=0;
+            starttime=System.currentTimeMillis();
+        }
+        if((secondspassed%60)==0)
+        displayMinutes++;
                    
                     s = char1.next().charAt(0);
                     clearConsole();
                     mapActuel.Deplacer(s);
-                     
+                    System.out.println("Niveau : "+niveau); 
+                    System.out.println("Score : "+compteur);
+                    System.out.println("Temps : "+displayMinutes+"min "+secondspassed+"s");
                     mapActuel.Afficher();
+                    displaysecondes = secondspassed;
                     
-                } while (mapActuel.casePred != 'P' && s !='p');
+                } while (mapActuel.casePred != 'P' && s !='p' && x );
 
                 
                 if (mapActuel.casePred == 'P') {
                     System.out.println("Fin du Tableau "+num+" : Félicitation ! vous aurez des bonbons");
+                    niveau = niveau+1;
                 }
                 
                 System.out.println("Voulez-vous continuer ? Tapez Y");
@@ -394,8 +444,12 @@ public class Map {
                 num++;
                 Map mapPro = new Map();
                 mapPro.Tab(num);
-
-                
+                compteur = 0;
+                displayminutes = 0;
+                displaysecondes=0;
+                System.out.println("Niveau : "+niveau); 
+                System.out.println("Score : "+compteur);
+                System.out.println("Temps : "+displayMinutes+"min "+displaysecondes+"s");
                 mapPro.Afficher();
                 mapPro.Partie(mapPro, num);
                 
