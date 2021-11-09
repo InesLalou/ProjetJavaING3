@@ -222,12 +222,12 @@ public class Map {
         
         
     }
-    
+    //hello from the outside
     void Deplacer(char d) {
         if (d == 'z') {// Partie perdue si rentre dans eau ou mur ??
             //System.out.println("test1");
             if (map[eceman.getx() - 1][eceman.gety()] == 'g' || map[eceman.getx() - 1][eceman.gety()] == 'P' || map[eceman.getx() - 1][eceman.gety()] == 'G' || map[eceman.getx() - 1][eceman.gety()] == 'T') {
-                System.out.println("test2");
+                
                 if (casePred == 'g') {
                     map[eceman.getx()][eceman.gety()] = 'o';
                 }

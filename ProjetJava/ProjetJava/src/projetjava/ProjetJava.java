@@ -16,6 +16,7 @@ import java.util.Scanner;
 
 //hello
 //coucouuuuu
+//hello from the outside
 
 public class ProjetJava {
 
