@@ -33,4 +33,8 @@ Map map = new Map();
 
     }
     }
+
+    public void TimerStart() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -3,28 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projetjava;
+/*package projetjava;
 
 import java.util.Scanner;
 
 
 
-/**
- *
- * @author ine28
- */
+
+ 
+  @author ine28
+
 
 //hello
 //coucouuuuu
 
 public class ProjetJava {
 
-    /**
+    
      * @param args the command line arguments
-     */
+     
     public static void main(String[] args) throws ClassNotFoundException, InterruptedException {
         Menu menu = new Menu();
         menu.MenuData();
     }
 
 }
+*/
